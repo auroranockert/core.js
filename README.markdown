@@ -5,16 +5,22 @@ An implementation of some useful parts from the C standard library, and a few
 useful parts inspired by the C standard library, right now the following
 functions are implemented.
 
-  * alloc(n) - like calloc, but only one parameter
-  * memcpy(dst, src, n)
-  * memcpy2(dst, dstOffset, src, srcOffset, n) - like memcpy, just takes offsets
-      to make it more like the C version.
-  
+  * CSAlloc(n) - like malloc, but always initializes with 0
+  * CSCopy(dst, dstOffset, src, srcOffset, n) - like memcpy, but takes offsets
+  * CSRealloc(source, newSize) - like realloc, but doesn't free the source
+  * CSCompare(a, aOffset, b, bOffset, n) - like memcmp, returns true if equal
+  * CSStringToBuffer(string) - converts a bytestring to a buffer
+  * CSCopyFromString(dst, dstOffset, src, srcOffset, n) - copies from a string
 
-And the following functions are added to ByteArrays,
+And some parts that are not
 
-  * realloc(n) - like realloc, but this is the source, and the original is not
-      free:d.
+  * CSBigEndian - is the current system big endian?
+  * CSByteSwap16(n) - Swap a 16-bit number
+  * CSByteSwap32(n) - Swap a 32-bit number
+  * CSBig16ToNative(n) - Convert a 16-bit number from big to native endian
+  * CSBig32ToNative(n) - Convert a 32-bit number from big to native endian
+  * CSLittle16ToNative(n) - Convert a 16-bit number from little to native endian
+  * CSLittle32ToNative(n) - Convert a 32-bit number from little to native endian
 
 More to be added, soon(tm)!
 
