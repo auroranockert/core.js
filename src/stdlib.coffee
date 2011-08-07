@@ -2,20 +2,18 @@ window.alloc = (n) ->
 	return new ArrayBuffer(n)
 
 window.memcpy = (dst, src, n) ->
-	for i in [0 ... n]
-		dst[i] = src[i]
+	[destination, source] = [new Uint8Array(dst, 0, n), new Uint8Array(src, 0, n)]
+	
+	destination.set(source)
 	
 	return dst
 
 window.memcpy2 = (dst, dstOffset, src, srcOffset, n) ->
-	[a, b] = [dstOffset, srcOffset]
+	[destination, source] = [new Uint8Array(dst, dstOffset, n), new Uint8Array(src, srcOffset, n)]
 	
-	for i in [0 ... n]
-		dst[a] = src[b]
-		
-		a += 1; b += 1
+	destination.set(source)
 	
 	return dst
 
 ArrayBuffer.prototype.realloc = (n) ->
-	return memcpy(new ArrayBuffer(n), this)
+	return memcpy(new ArrayBuffer(n), this, this.byteLength)
