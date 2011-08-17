@@ -3,14 +3,44 @@
   window.CSAlloc = function(n) {
     return new ArrayBuffer(n);
   };
+  window.CSRealloc = function(buffer, n) {
+    return window.CSCopy(CSAlloc(n), 0, buffer, 0, Math.min(n, buffer.byteLength));
+  };
+  window.CSRead = function(src, offset, n) {
+    return window.CSCopy(CSAlloc(n), 0, src, offset, n);
+  };
+  window.CSReadNative16 = function(src, offset) {
+    return window.CSRead(src, offset, 2);
+  };
+  window.CSReadNative32 = function(src, offset) {
+    return window.CSRead(src, offset, 4);
+  };
+  window.CSReadNative64 = function(src, offset) {
+    return window.CSRead(src, offset, 8);
+  };
+  window.CSReadBig16 = function(src, offset) {
+    return window.CSBigToNative16(CSAlloc(2), 0, src, offset, 2);
+  };
+  window.CSReadBig32 = function(src, offset) {
+    return window.CSBigToNative32(CSAlloc(4), 0, src, offset, 4);
+  };
+  window.CSReadBig64 = function(src, offset) {
+    return window.CSBigToNative64(CSAlloc(8), 0, src, offset, 8);
+  };
+  window.CSReadLittle16 = function(src, offset) {
+    return window.CSLittleToNative16(CSAlloc(2), 0, src, offset, 2);
+  };
+  window.CSReadLittle32 = function(src, offset) {
+    return window.CSLittleToNative32(CSAlloc(4), 0, src, offset, 4);
+  };
+  window.CSReadLittle64 = function(src, offset) {
+    return window.CSLittleToNative64(CSAlloc(8), 0, src, offset, 8);
+  };
   window.CSCopy = function(dst, dstOffset, src, srcOffset, n) {
     var destination, source, _ref;
     _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(src, srcOffset, n)], destination = _ref[0], source = _ref[1];
     destination.set(source);
     return dst;
-  };
-  window.CSRealloc = function(buffer, n) {
-    return CSCopy(new ArrayBuffer(n), 0, buffer, 0, Math.min(n, buffer.byteLength));
   };
   window.CSCompare = function(a, aOffset, b, bOffset, n) {
     var i, _ref;
@@ -22,14 +52,48 @@
     }
     return true;
   };
-  window.CSCopyFromString = function(dst, dstOffset, src, srcOffset, n) {
-    var destination, i;
-    destination = new Uint8Array(dst, dstOffset, n);
-    for (i = 0; i < n; i += 1) {
-      destination[i] = src.charCodeAt(srcOffset + i);
+  endianBuffer = new Uint16Array(1);
+  endianBuffer[0] = 0x00FF;
+  window.CSBigEndian = new Uint8Array(endianBuffer.buffer)[0] === 0x00;
+  window.CSSwap16 = function(dst, dstOffset, src, srcOffset, n) {
+    var dstArray, i, srcArray, _ref, _ref2;
+    _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(src, srcOffset, n)], dstArray = _ref[0], srcArray = _ref[1];
+    for (i = 0; i < n; i += 2) {
+      _ref2 = [srcArray[i], srcArray[i + 1]], dstArray[i + 1] = _ref2[0], dstArray[i] = _ref2[1];
     }
     return dst;
   };
+  window.CSSwap32 = function(dst, dstOffset, src, srcOffset, n) {
+    var dstArray, i, srcArray, _ref, _ref2;
+    _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(src, srcOffset, n)], dstArray = _ref[0], srcArray = _ref[1];
+    for (i = 0; i < n; i += 4) {
+      _ref2 = [srcArray[i], srcArray[i + 1], srcArray[i + 2], srcArray[i + 3]], dstArray[i + 3] = _ref2[0], dstArray[i + 2] = _ref2[1], dstArray[i + 1] = _ref2[2], dstArray[i] = _ref2[3];
+    }
+    return dst;
+  };
+  window.CSSwap64 = function(dst, dstOffset, src, srcOffset, n) {
+    var dstArray, i, srcArray, _ref, _ref2;
+    _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(src, srcOffset, n)], dstArray = _ref[0], srcArray = _ref[1];
+    for (i = 0; i < n; i += 4) {
+      _ref2 = [srcArray[i], srcArray[i + 1], srcArray[i + 2], srcArray[i + 3], srcArray[i + 4], srcArray[i + 5], srcArray[i + 6], srcArray[i + 7]], dstArray[i + 7] = _ref2[0], dstArray[i + 6] = _ref2[1], dstArray[i + 5] = _ref2[2], dstArray[i + 4] = _ref2[3], dstArray[i + 3] = _ref2[4], dstArray[i + 2] = _ref2[5], dstArray[i + 1] = _ref2[6], dstArray[i] = _ref2[7];
+    }
+    return dst;
+  };
+  if (window.CSBigEndian) {
+    window.CSBigToNative16 = window.CSCopy;
+    window.CSBigToNative32 = window.CSCopy;
+    window.CSBigToNative64 = window.CSCopy;
+    window.CSLittleToNative16 = window.CSSwap16;
+    window.CSLittleToNative32 = window.CSSwap32;
+    window.CSLittleToNative64 = window.CSSwap64;
+  } else {
+    window.CSBigToNative16 = window.CSSwap16;
+    window.CSBigToNative32 = window.CSSwap32;
+    window.CSBigToNative64 = window.CSSwap64;
+    window.CSLittleToNative16 = window.CSCopy;
+    window.CSLittleToNative32 = window.CSCopy;
+    window.CSLittleToNative64 = window.CSCopy;
+  }
   window.CSStringToBuffer = function(string) {
     var a, i, _ref;
     a = new Uint8Array(string.length);
@@ -38,33 +102,15 @@
     }
     return a.buffer;
   };
-  endianBuffer = new Uint8Array(2);
-  endianBuffer[0] = 0xFF;
-  endianBuffer[1] = 0x00;
-  window.CSBigEndian = new Uint16Array(endianBuffer.buffer)[0] !== 0xFF;
-  window.CSByteSwap16 = function(b) {
-    return ((b & 0xFF00) >> 8) + ((b & 0x00FF) << 8);
+  window.CSCopyFromString = function(dst, dstOffset, src, srcOffset, n) {
+    var destination, i;
+    destination = new Uint8Array(dst, dstOffset, n);
+    for (i = 0; i < n; i += 1) {
+      destination[i] = src.charCodeAt(srcOffset + i);
+    }
+    return dst;
   };
-  window.CSByteSwap32 = function(b) {
-    return ((b & 0xFF000000) >> 24) + ((b & 0x00FF0000) >> 8) + ((b & 0x0000FF00) << 8) + ((b & 0x000000FF) << 24);
+  window.CSCompareToString = function(a, aOffset, b, bOffset, n) {
+    return CSCompare(a, aOffset, CSStringToBuffer(string), bOffset, n);
   };
-  if (window.CSBigEndian) {
-    window.CSBig16ToNative = function(b) {
-      return b & 0xFFFF;
-    };
-    window.CSBig32ToNative = function(b) {
-      return b & 0xFFFFFFFF;
-    };
-    window.CSLittle16ToNative = CSByteSwap16;
-    window.CSLittle32ToNative = CSByteSwap32;
-  } else {
-    window.CSBig16ToNative = CSByteSwap16;
-    window.CSBig32ToNative = CSByteSwap32;
-    window.CSLittle16ToNative = function(b) {
-      return b & 0xFFFF;
-    };
-    window.CSLittle32ToNative = function(b) {
-      return b & 0xFFFFFFFF;
-    };
-  }
 }).call(this);
