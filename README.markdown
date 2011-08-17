@@ -133,6 +133,25 @@ respectively.
 It is safe for `src` and `dst` to be the same buffer.
 
 
+Bitwise
+-------------------------------------------------------------------------------
+
+### CSBitwiseNOT ###
+
+    CSBitwiseNOT(dst, offset, a, offset, n)
+
+Applies a bitwise operator to `a`, assigning the result to `dst`. Only operates
+on the `n` first bytes.
+
+
+### CSBitwise(AND|NAND|NOR|OR|XOR) ###
+
+    CSBitwiseAND(dst, offset, a, offset, b, offset, n)
+
+Applies a bitwise operator to `a` and `b`, assigning the result to `dst`. Only
+operates on the `n` first bytes.
+
+
 License (MIT)
 -------------------------------------------------------------------------------
 

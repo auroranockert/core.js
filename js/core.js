@@ -36,6 +36,54 @@
   window.CSReadLittle64 = function(src, offset) {
     return window.CSLittleToNative64(CSAlloc(8), 0, src, offset, 8);
   };
+  window.CSBitwiseAND = function(dst, dstOffset, a, aOffset, b, bOffset, n) {
+    var aArray, bArray, dstArray, i, _ref;
+    _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(a, aOffset, n), new Uint8Array(b, bOffset, n)], dstArray = _ref[0], aArray = _ref[1], bArray = _ref[2];
+    for (i = 0; i < n; i += 1) {
+      dstArray[i] = aArray[i] & bArray[i];
+    }
+    return dst;
+  };
+  window.CSBitwiseNAND = function(dst, dstOffset, a, aOffset, b, bOffset, n) {
+    var aArray, bArray, dstArray, i, _ref;
+    _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(a, aOffset, n), new Uint8Array(b, bOffset, n)], dstArray = _ref[0], aArray = _ref[1], bArray = _ref[2];
+    for (i = 0; i < n; i += 1) {
+      dstArray[i] = ~(aArray[i] & bArray[i]);
+    }
+    return dst;
+  };
+  window.CSBitwiseNOR = function(dst, dstOffset, a, aOffset, b, bOffset, n) {
+    var aArray, bArray, dstArray, i, _ref;
+    _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(a, aOffset, n), new Uint8Array(b, bOffset, n)], dstArray = _ref[0], aArray = _ref[1], bArray = _ref[2];
+    for (i = 0; i < n; i += 1) {
+      dstArray[i] = ~(aArray[i] | bArray[i]);
+    }
+    return dst;
+  };
+  window.CSBitwiseNOT = function(dst, dstOffset, a, aOffset, n) {
+    var aArray, dstArray, i, _ref;
+    _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(a, aOffset, n)], dstArray = _ref[0], aArray = _ref[1];
+    for (i = 0; i < n; i += 1) {
+      dstArray[i] = ~aArray[i];
+    }
+    return dst;
+  };
+  window.CSBitwiseOR = function(dst, dstOffset, a, aOffset, b, bOffset, n) {
+    var aArray, bArray, dstArray, i, _ref;
+    _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(a, aOffset, n), new Uint8Array(b, bOffset, n)], dstArray = _ref[0], aArray = _ref[1], bArray = _ref[2];
+    for (i = 0; i < n; i += 1) {
+      dstArray[i] = aArray[i] | bArray[i];
+    }
+    return dst;
+  };
+  window.CSBitwiseXOR = function(dst, dstOffset, a, aOffset, b, bOffset, n) {
+    var aArray, bArray, dstArray, i, _ref;
+    _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(a, aOffset, n), new Uint8Array(b, bOffset, n)], dstArray = _ref[0], aArray = _ref[1], bArray = _ref[2];
+    for (i = 0; i < n; i += 1) {
+      dstArray[i] = aArray[i] ^ bArray[i];
+    }
+    return dst;
+  };
   window.CSCopy = function(dst, dstOffset, src, srcOffset, n) {
     var destination, source, _ref;
     _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(src, srcOffset, n)], destination = _ref[0], source = _ref[1];
