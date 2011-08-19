@@ -1,10 +1,21 @@
 (function() {
   var endianBuffer;
+  var __slice = Array.prototype.slice;
   window.CSAlloc = function(n) {
     return new ArrayBuffer(n);
   };
   window.CSRealloc = function(buffer, n) {
     return window.CSCopy(CSAlloc(n), 0, buffer, 0, Math.min(n, buffer.byteLength));
+  };
+  window.CSByteBuffer = function() {
+    var array, bytes, i, result, _ref;
+    bytes = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    result = CSAlloc(bytes.length);
+    array = new Uint8Array(result);
+    for (i = 0, _ref = bytes.length; i < _ref; i += 1) {
+      array[i] = bytes[i];
+    }
+    return result;
   };
   window.CSRead = function(src, offset, n) {
     return window.CSCopy(CSAlloc(n), 0, src, offset, n);

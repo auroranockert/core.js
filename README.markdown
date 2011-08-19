@@ -28,6 +28,13 @@ Like `realloc`, but it does not free `source`, the only way to free something in
 core.js is via garbage collection.
 
 
+### CSByteBuffer ###
+
+    CSByteBuffer(bytes...)
+
+Allocates a buffer containing `bytes`.
+
+
 ### CSRead ###
 
     CSRead(src, offset, n)

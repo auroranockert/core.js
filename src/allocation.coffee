@@ -4,6 +4,13 @@ window.CSAlloc = (n) ->
 window.CSRealloc = (buffer, n) ->
 	return window.CSCopy(CSAlloc(n), 0, buffer, 0, Math.min(n, buffer.byteLength))
 
+window.CSByteBuffer = (bytes...) ->
+	result = CSAlloc(bytes.length); array = new Uint8Array(result)
+	
+	array[i] = bytes[i] for i in [0 ... bytes.length] by 1
+	
+	return result
+
 window.CSRead = (src, offset, n) ->
 	return window.CSCopy(CSAlloc(n), 0, src, offset, n)
 
