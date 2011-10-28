@@ -170,6 +170,6 @@
     return dst;
   };
   window.CSCompareToString = function(a, aOffset, b, bOffset, n) {
-    return CSCompare(a, aOffset, CSStringToBuffer(string), bOffset, n);
+    return CSCompare(a, aOffset, CSStringToBuffer(b), bOffset, n);
   };
 }).call(this);

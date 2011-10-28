@@ -13,4 +13,4 @@ window.CSCopyFromString = (dst, dstOffset, src, srcOffset, n) ->
 	return dst
 
 window.CSCompareToString = (a, aOffset, b, bOffset, n) ->
-	return CSCompare(a, aOffset, CSStringToBuffer(string), bOffset, n)
+	return CSCompare(a, aOffset, CSStringToBuffer(b), bOffset, n)
