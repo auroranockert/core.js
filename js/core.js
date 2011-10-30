@@ -61,6 +61,12 @@
     return window.CSLittleToNative64(CSAlloc(8), 0, src, offset, 8);
   };
 
+  window.CSReadFewBits = function(src, offset, n) {
+    var a;
+    a = CSReadBigUint16(src, Math.floor(offset / 8)) << (offset % 8);
+    return a >> (16 - n);
+  };
+
   window.CSBitwiseAND = function(dst, dstOffset, a, aOffset, b, bOffset, n) {
     var aArray, bArray, dstArray, i, _ref;
     _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(a, aOffset, n), new Uint8Array(b, bOffset, n)], dstArray = _ref[0], aArray = _ref[1], bArray = _ref[2];
