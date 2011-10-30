@@ -158,7 +158,7 @@
   window.CSSwap64 = function(dst, dstOffset, src, srcOffset, n) {
     var dstArray, i, srcArray, _ref, _ref2;
     _ref = [new Uint8Array(dst, dstOffset, n), new Uint8Array(src, srcOffset, n)], dstArray = _ref[0], srcArray = _ref[1];
-    for (i = 0; i < n; i += 4) {
+    for (i = 0; i < n; i += 8) {
       _ref2 = [srcArray[i], srcArray[i + 1], srcArray[i + 2], srcArray[i + 3], srcArray[i + 4], srcArray[i + 5], srcArray[i + 6], srcArray[i + 7]], dstArray[i + 7] = _ref2[0], dstArray[i + 6] = _ref2[1], dstArray[i + 5] = _ref2[2], dstArray[i + 4] = _ref2[3], dstArray[i + 3] = _ref2[4], dstArray[i + 2] = _ref2[5], dstArray[i + 1] = _ref2[6], dstArray[i] = _ref2[7];
     }
     return dst;
