@@ -5,6 +5,11 @@ window.CSStringToBuffer = (string) ->
 	
 	return a.buffer
 
+window.CSBufferToString = (buffer, offset, n) ->
+    a = new Uint8Array(CSRead(buffer, n))
+    
+    return String.fromCharCode(*a)
+
 window.CSCopyFromString = (dst, dstOffset, src, srcOffset, n) ->
 	destination = new Uint8Array(dst, dstOffset, n)
 	
