@@ -66,6 +66,11 @@ Loads a single byte integer from a buffer into a Javascript number.
 Loads a 2 or 4 byte integer from a buffer into a Javascript number, 8 byte integers are not supported since they would lose precision.
 
 
+### CSLoad(Native|Little|Big)Float(32|64) ###
+
+Loads a 4 or 8 byte float from a buffer into a Javascript number.
+
+
 ### CSStringToBuffer ###
 
     CSStringToBuffer(string)
@@ -73,6 +78,13 @@ Loads a 2 or 4 byte integer from a buffer into a Javascript number, 8 byte integ
 Creates a new buffer, with the same values as the ASCII values of each character
 in `string`. You probably should only call this on constant strings, users will
 probably not be aware of the ASCII limitations.
+
+
+### CSBufferToString ###
+
+    CSBufferToString(src, offset, n)
+
+Creates a string from an ASCII buffer.
 
 
 Comparison

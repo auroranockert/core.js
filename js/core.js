@@ -204,6 +204,14 @@
     return new Uint32Array(window.CSReadNative32(src, offset))[0];
   };
 
+  window.CSLoadNativeFloat32 = function(src, offset) {
+    return new Float32Array(window.CSReadNative32(src, offset))[0];
+  };
+
+  window.CSLoadNativeFloat64 = function(src, offset) {
+    return new Float64Array(window.CSReadNative64(src, offset))[0];
+  };
+
   window.CSLoadBigInt16 = function(src, offset) {
     return new Int16Array(window.CSReadBig16(src, offset))[0];
   };
@@ -220,6 +228,14 @@
     return new Uint32Array(window.CSReadBig32(src, offset))[0];
   };
 
+  window.CSLoadBigFloat32 = function(src, offset) {
+    return new Float32Array(window.CSReadBig32(src, offset))[0];
+  };
+
+  window.CSLoadBigFloat64 = function(src, offset) {
+    return new Float64Array(window.CSReadBig64(src, offset))[0];
+  };
+
   window.CSLoadLittleInt16 = function(src, offset) {
     return new Int16Array(window.CSReadLittle16(src, offset))[0];
   };
@@ -234,6 +250,14 @@
 
   window.CSLoadLittleUInt32 = function(src, offset) {
     return new Uint32Array(window.CSReadLittle32(src, offset))[0];
+  };
+
+  window.CSLoadLittleFloat32 = function(src, offset) {
+    return new Float32Array(window.CSReadLittle32(src, offset))[0];
+  };
+
+  window.CSLoadLittleFloat64 = function(src, offset) {
+    return new Float64Array(window.CSReadLittle64(src, offset))[0];
   };
 
   window.CSStringToBuffer = function(string) {
