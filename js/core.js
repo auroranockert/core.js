@@ -63,7 +63,7 @@
 
   window.CSLoadFewBits = function(src, offset, n) {
     var a;
-    a = CSReadBigUint16(src, Math.floor(offset / 8)) << (offset % 8);
+    a = CSReadBigUInt16(src, Math.floor(offset / 8)) << (offset % 8);
     return a >> (16 - n);
   };
 
