@@ -43,13 +43,20 @@ Creates a new buffer, with the same values as `src` from `offset` and `n` bytes
 on.
 
 
-### CSRead(Little|Big)(16|32|64) ###
+### CSRead(Native|Little|Big)(16|32|64) ###
 
     CSReadBig16(src, offset)
 
 Reads a 2, 4 or 8 byte unit from a buffer into a newly allocated buffer, this
 seems like it is a pretty useless endeavour, but Javascript doesn't support
 integers very well, especially not unsigned ones.
+
+
+### CSLoad(Native|Little|Big)(U?)Int(16|32) ###
+
+    CSLoadBig16(src, offset)
+
+Reads a 2 or 4 byte integer from a buffer into a Javascript number, 8 byte integers are not supported since they would lose precision.
 
 
 ### CSStringToBuffer ###
