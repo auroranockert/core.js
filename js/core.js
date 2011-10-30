@@ -247,7 +247,7 @@
 
   window.CSBufferToString = function(buffer, offset, n) {
     var a;
-    a = new Uint8Array(CSRead(buffer, n));
+    a = new Uint8Array(CSRead(buffer, offset, n));
     return String.fromCharCode.apply(String, a);
   };
 
