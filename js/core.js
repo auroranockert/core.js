@@ -61,7 +61,7 @@
     return window.CSLittleToNative64(CSAlloc(8), 0, src, offset, 8);
   };
 
-  window.CSReadFewBits = function(src, offset, n) {
+  window.CSLoadFewBits = function(src, offset, n) {
     var a;
     a = CSReadBigUint16(src, Math.floor(offset / 8)) << (offset % 8);
     return a >> (16 - n);
