@@ -245,6 +245,12 @@
     return a.buffer;
   };
 
+  window.CSBufferToString = function(buffer, offset, n) {
+    var a;
+    a = new Uint8Array(CSRead(buffer, n));
+    return String.fromCharCode.apply(String, a);
+  };
+
   window.CSCopyFromString = function(dst, dstOffset, src, srcOffset, n) {
     var destination, i;
     destination = new Uint8Array(dst, dstOffset, n);
