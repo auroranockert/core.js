@@ -6,7 +6,7 @@ window.CSStringToBuffer = (string) ->
 	return a.buffer
 
 window.CSBufferToString = (buffer, offset, n) ->
-    a = new Uint8Array(CSRead(buffer, n))
+    a = new Uint8Array(CSRead(buffer, offset, n))
     
     return String.fromCharCode(a...)
 
