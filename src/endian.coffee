@@ -39,7 +39,7 @@ window.CSSwap32 = (dst, dstOffset, src, srcOffset, n) ->
 window.CSSwap64 = (dst, dstOffset, src, srcOffset, n) ->
 	[dstArray, srcArray] = [new Uint8Array(dst, dstOffset, n), new Uint8Array(src, srcOffset, n)]
 	
-	for i in [0 ... n] by 4
+	for i in [0 ... n] by 8
 		[
 			dstArray[i + 7],
 			dstArray[i + 6],
