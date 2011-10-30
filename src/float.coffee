@@ -1,3 +1,9 @@
+window.CSLoadInt8 = (src, offset) ->
+	return new Int8Array(src)[offset]
+
+window.CSLoadUInt8 = (src, offset) ->
+	return new Uint8Array(src)[offset]
+
 window.CSLoadNativeInt16 = (src, offset) ->
 	return new Int16Array(window.CSReadNative16(src, offset))[0]
 

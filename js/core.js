@@ -180,6 +180,14 @@
     window.CSLittleToNative64 = window.CSCopy;
   }
 
+  window.CSLoadInt8 = function(src, offset) {
+    return new Int8Array(src)[offset];
+  };
+
+  window.CSLoadUInt8 = function(src, offset) {
+    return new Uint8Array(src)[offset];
+  };
+
   window.CSLoadNativeInt16 = function(src, offset) {
     return new Int16Array(window.CSReadNative16(src, offset))[0];
   };

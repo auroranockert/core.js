@@ -52,11 +52,18 @@ seems like it is a pretty useless endeavour, but Javascript doesn't support
 integers very well, especially not unsigned ones.
 
 
+### CSLoad(U?)Int8 ###
+
+    CSLoadInt8(src, offset)
+
+Loads a single byte integer from a buffer into a Javascript number.
+
+
 ### CSLoad(Native|Little|Big)(U?)Int(16|32) ###
 
-    CSLoadBig16(src, offset)
+    CSLoadBigInt16(src, offset)
 
-Reads a 2 or 4 byte integer from a buffer into a Javascript number, 8 byte integers are not supported since they would lose precision.
+Loads a 2 or 4 byte integer from a buffer into a Javascript number, 8 byte integers are not supported since they would lose precision.
 
 
 ### CSStringToBuffer ###
